@@ -12,7 +12,8 @@ class App extends StatelessWidget {
         backgroundColor: Color(0xFF181818), // 색상 #181818 을 주는법
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 40),
-          child: Column(children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             SizedBox(
               height: 80,
             ),
@@ -31,10 +32,59 @@ class App extends StatelessWidget {
                     Text(
                       'Welcome back',
                       style: TextStyle(
-                          color: Colors.white.withOpacity(0.8), fontSize: 18),
+                        color: Colors.white.withOpacity(0.8),
+                        // color: Color.fromRGBO(255, 255, 255, 0.8)
+                        fontSize: 18,
+                      ),
                     ),
                   ],
                 )
+              ],
+            ),
+            SizedBox(
+              height: 120,
+            ),
+            Text(
+              'Total Balance',
+              style: TextStyle(
+                fontSize: 22,
+                color: Colors.white.withOpacity(0.8),
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              '\$5 194 482',
+              style: TextStyle(
+                fontSize: 48,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              children: [
+                Container(
+                    // Container 는 div 와 비슷함 (child 를 갖고있는 단순한 box)
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(45),
+                      color: Colors.amber,
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 20,
+                        horizontal: 50,
+                      ),
+                      child: Text(
+                        'Transfer',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    ))
               ],
             )
           ]),
