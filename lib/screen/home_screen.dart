@@ -88,6 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Center(
                   child: IconButton(
+                padding: EdgeInsets.zero,
                 iconSize: 120,
                 color: Theme.of(context).cardColor,
                 icon: Icon(
@@ -99,6 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
               )),
               Center(
                   child: IconButton(
+                padding: EdgeInsets.zero,
                 iconSize: 40,
                 color: Theme.of(context).cardColor,
                 icon: const Icon(
