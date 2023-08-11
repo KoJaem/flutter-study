@@ -48,6 +48,14 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void onReset() {
+    if (isRunning) timer.cancel();
+    setState(() {
+      totalSeconds = pomodoroTime;
+      isRunning = false;
+    });
+  }
+
   String format(int seconds) {
     var duration = Duration(seconds: seconds);
 
@@ -75,17 +83,31 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         Flexible(
           flex: 2,
-          child: Center(
-              child: IconButton(
-            iconSize: 120,
-            color: Theme.of(context).cardColor,
-            icon: Icon(
-              isRunning
-                  ? Icons.pause_circle_outline
-                  : Icons.play_circle_outline,
-            ),
-            onPressed: onPressed,
-          )),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                  child: IconButton(
+                iconSize: 120,
+                color: Theme.of(context).cardColor,
+                icon: Icon(
+                  isRunning
+                      ? Icons.pause_circle_outline
+                      : Icons.play_circle_outline,
+                ),
+                onPressed: onPressed,
+              )),
+              Center(
+                  child: IconButton(
+                iconSize: 40,
+                color: Theme.of(context).cardColor,
+                icon: const Icon(
+                  Icons.restore_outlined,
+                ),
+                onPressed: onReset,
+              )),
+            ],
+          ),
         ),
         Flexible(
           flex: 1,
