@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toonflix/models/webtoon_model.dart';
 import 'package:toonflix/services/api_service.dart';
+import 'package:toonflix/widgets/webtoon_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -17,6 +18,9 @@ class HomeScreen extends StatelessWidget {
         elevation: 2, // title box 그림자 처리
         title: const Text(
           "Today's toons",
+          style: TextStyle(
+            fontSize: 24,
+          ),
         ),
       ),
       body: FutureBuilder(
@@ -54,38 +58,10 @@ class HomeScreen extends StatelessWidget {
         // 사용자가 보고있는 화면에 대한 item 만 build 함
         print(index);
         var webtoon = snapshot.data![index];
-        return Column(
-          children: [
-            Container(
-              width: 250,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 15, // 그림자가 얼마나 드리울지 정함
-                      offset: const Offset(5, 5), // 그림자의 위치
-                      color: Colors.black.withOpacity(0.5),
-                    )
-                  ]),
-              clipBehavior: Clip.hardEdge,
-              child: Image.network(
-                webtoon.thumb,
-                headers: const {
-                  "User-Agent":
-                      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
-                },
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              webtoon.title,
-              style: const TextStyle(
-                fontSize: 22,
-              ),
-            ),
-          ],
+        return Webtoon(
+          title: webtoon.title,
+          thumb: webtoon.thumb,
+          id: webtoon.id,
         );
       },
       separatorBuilder: (context, index) => const SizedBox(
