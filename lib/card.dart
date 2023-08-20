@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: const Color(0xFF181818), // 색상 #181818 을 주는법
         body: SingleChildScrollView(
+          // overflow 를 scroll 할 수 있게 해주는 widget
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(

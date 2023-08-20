@@ -43,51 +43,46 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 50,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Hero(
-                tag: widget.id,
-                child: Container(
-                  width: 250,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 15, // 그림자가 얼마나 드리울지 정함
-                          offset: const Offset(5, 5), // 그림자의 위치
-                          color: Colors.black.withOpacity(0.5),
-                        )
-                      ]),
-                  clipBehavior: Clip.hardEdge,
-                  child: Image.network(
-                    widget.thumb,
-                    headers: const {
-                      "User-Agent":
-                          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
-                    },
+      body: Padding(
+        padding: const EdgeInsets.all(50),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Hero(
+                  tag: widget.id,
+                  child: Container(
+                    width: 250,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 15, // 그림자가 얼마나 드리울지 정함
+                            offset: const Offset(5, 5), // 그림자의 위치
+                            color: Colors.black.withOpacity(0.5),
+                          )
+                        ]),
+                    clipBehavior: Clip.hardEdge,
+                    child: Image.network(
+                      widget.thumb,
+                      headers: const {
+                        "User-Agent":
+                            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+                      },
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          FutureBuilder(
-            future: webtoon,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 50,
-                  ),
-                  child: Column(
+              ],
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            FutureBuilder(
+              future: webtoon,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -106,13 +101,61 @@ class _DetailScreenState extends State<DetailScreen> {
                         ),
                       ),
                     ],
-                  ),
-                );
-              }
-              return const Text('...');
-            },
-          )
-        ],
+                  );
+                }
+                return const Text('...');
+              },
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            Expanded(
+              child: FutureBuilder(
+                future: episodes,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.separated(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) =>
+                          // Text(snapshot.data![index].title),
+                          Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.green.shade400,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10,
+                            horizontal: 20,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                snapshot.data![index].title,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              const Icon(
+                                Icons.chevron_right_rounded,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      separatorBuilder: (context, index) => const SizedBox(
+                        height: 10,
+                      ),
+                    );
+                  }
+                  return Container();
+                },
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
