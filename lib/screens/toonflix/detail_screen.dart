@@ -121,7 +121,11 @@ class _DetailScreenState extends State<DetailScreen> {
                           Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Colors.green.shade400,
+                          // color: Colors.green.shade400,
+                          border: Border.all(
+                            width: 2,
+                            color: Colors.green.shade400,
+                          ),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -134,12 +138,13 @@ class _DetailScreenState extends State<DetailScreen> {
                               Text(
                                 snapshot.data![index].title,
                                 style: const TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.green,
+                                  fontSize: 16,
                                 ),
                               ),
                               const Icon(
                                 Icons.chevron_right_rounded,
-                                color: Colors.white,
+                                color: Colors.green,
                               ),
                             ],
                           ),
