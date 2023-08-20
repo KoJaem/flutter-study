@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toonflix/models/webtoon_detail_model.dart';
 import 'package:toonflix/models/webtoon_episode_model.dart';
 import 'package:toonflix/services/api_service.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class DetailScreen extends StatefulWidget {
   final String title, thumb, id;
@@ -120,52 +121,8 @@ class _DetailScreenState extends State<DetailScreen> {
                       itemBuilder: (context, index) =>
                           // Text(snapshot.data![index].title),
                           Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            print(snapshot.data![index].title);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              border: Border.all(
-                                width: 2,
-                                color: Colors.green.shade400,
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 5, // 그림자가 얼마나 드리울지 정함
-                                  offset: const Offset(5, 5), // 그림자의 위치
-                                  color: Colors.black.withOpacity(0.2),
-                                )
-                              ],
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 10,
-                                horizontal: 20,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    snapshot.data![index].title,
-                                    style: const TextStyle(
-                                      color: Colors.green,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  const Icon(
-                                    Icons.chevron_right_rounded,
-                                    color: Colors.green,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                        padding: const EdgeInsets.all(10),
+                        child: Episode(snapshot, index, widget.id),
                       ),
                       separatorBuilder: (context, index) => const SizedBox(
                         height: 10,
@@ -177,6 +134,60 @@ class _DetailScreenState extends State<DetailScreen> {
               ),
             )
           ],
+        ),
+      ),
+    );
+  }
+
+  GestureDetector Episode(
+      AsyncSnapshot<List<WebtoonEpisodeModel>> snapshot, int index, String id) {
+    onButtonTap() async {
+      // final url = Uri.parse("https://google.com");
+      // await launchUrl(url);
+      // * 위 코드와 아래코드는 같은 코드
+      await launchUrlString(
+          "https://comic.naver.com/webtoon/detail?titleId=$id&no=${snapshot.data![index].id}");
+    }
+
+    return GestureDetector(
+      onTap: onButtonTap,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+          border: Border.all(
+            width: 2,
+            color: Colors.green.shade400,
+          ),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 5, // 그림자가 얼마나 드리울지 정함
+              offset: const Offset(5, 5), // 그림자의 위치
+              color: Colors.black.withOpacity(0.2),
+            )
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: 20,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                snapshot.data![index].title,
+                style: const TextStyle(
+                  color: Colors.green,
+                  fontSize: 16,
+                ),
+              ),
+              const Icon(
+                Icons.chevron_right_rounded,
+                color: Colors.green,
+              ),
+            ],
+          ),
         ),
       ),
     );
