@@ -55,14 +55,15 @@ class _DetailScreenState extends State<DetailScreen> {
                   child: Container(
                     width: 250,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 15, // 그림자가 얼마나 드리울지 정함
-                            offset: const Offset(5, 5), // 그림자의 위치
-                            color: Colors.black.withOpacity(0.5),
-                          )
-                        ]),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 15, // 그림자가 얼마나 드리울지 정함
+                          offset: const Offset(5, 5), // 그림자의 위치
+                          color: Colors.black.withOpacity(0.5),
+                        )
+                      ],
+                    ),
                     clipBehavior: Clip.hardEdge,
                     child: Image.network(
                       widget.thumb,
@@ -118,35 +119,51 @@ class _DetailScreenState extends State<DetailScreen> {
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) =>
                           // Text(snapshot.data![index].title),
-                          Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          // color: Colors.green.shade400,
-                          border: Border.all(
-                            width: 2,
-                            color: Colors.green.shade400,
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 10,
-                            horizontal: 20,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                snapshot.data![index].title,
-                                style: const TextStyle(
-                                  color: Colors.green,
-                                  fontSize: 16,
-                                ),
+                          Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            print(snapshot.data![index].title);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                              border: Border.all(
+                                width: 2,
+                                color: Colors.green.shade400,
                               ),
-                              const Icon(
-                                Icons.chevron_right_rounded,
-                                color: Colors.green,
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 5, // 그림자가 얼마나 드리울지 정함
+                                  offset: const Offset(5, 5), // 그림자의 위치
+                                  color: Colors.black.withOpacity(0.2),
+                                )
+                              ],
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 10,
+                                horizontal: 20,
                               ),
-                            ],
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    snapshot.data![index].title,
+                                    style: const TextStyle(
+                                      color: Colors.green,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  const Icon(
+                                    Icons.chevron_right_rounded,
+                                    color: Colors.green,
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
